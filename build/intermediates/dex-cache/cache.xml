@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="D:\David\AndroidStudioWorkSpaces\Hangout\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.1.1\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="5c5699834e9722f1c288fea2de82725d078ba127">
+        <dex dex="D:\David\AndroidStudioWorkSpaces\Hangout\app\build\intermediates\pre-dexed\debug\com.android.support-appcompat-v7-23.1.1_4e7723ed344f87e34716e187d6993f0f13e6e8f0.jar" />
+    </item>
+    <item
+        jar="D:\David\AndroidStudioWorkSpaces\Hangout\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\23.1.1\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="09c5e804bc67fc0580360043dff067df574a60d4">
+        <dex dex="D:\David\AndroidStudioWorkSpaces\Hangout\app\build\intermediates\pre-dexed\debug\com.android.support-recyclerview-v7-23.1.1_3d35be7aa6ce42d6ae2fc1a50aae53210f296bee.jar" />
+    </item>
+    <item
+        jar="D:\David\AndroidStudioWorkSpaces\Hangout\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.1\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="6cbc7773921fcfedbe55657578f0cbfe614778dc">
+        <dex dex="D:\David\AndroidStudioWorkSpaces\Hangout\app\build\intermediates\pre-dexed\debug\com.android.support-support-v4-23.1.1_94ed0217602a728635e0242162bf46f2f86501f5.jar" />
+    </item>
+    <item
+        jar="D:\David\AndroidStudioWorkSpaces\Hangout\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.1\jars\libs\internal_impl-23.1.1.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="a4de9c81ae239414e1ed0f86441b02abaf29bca9">
+        <dex dex="D:\David\AndroidStudioWorkSpaces\Hangout\app\build\intermediates\pre-dexed\debug\internal_impl-23.1.1_21016e0d7e09a0b402a9fa7502b1ffe2a6f8fc50.jar" />
+    </item>
+    <item
+        jar="D:\David\AndridSDK\extras\android\m2repository\com\android\support\support-annotations\23.1.1\support-annotations-23.1.1.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="8d680ba5a623724d1fb0e81c36a790f023a6cede">
+        <dex dex="D:\David\AndroidStudioWorkSpaces\Hangout\app\build\intermediates\pre-dexed\debug\support-annotations-23.1.1_b6f7950d9f4066f6ea60c2a4adf28202b1afde4c.jar" />
+    </item>
+    <item
+        jar="D:\David\AndroidStudioWorkSpaces\Hangout\app\build\intermediates\exploded-aar\com.android.support\design\23.1.1\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="379471b2bd17d9737c050345c08e8c7d16589784">
+        <dex dex="D:\David\AndroidStudioWorkSpaces\Hangout\app\build\intermediates\pre-dexed\debug\com.android.support-design-23.1.1_3dae1f9e0f3579018017b6c1f118c91fb6c68c94.jar" />
+    </item>
+
+</items>
