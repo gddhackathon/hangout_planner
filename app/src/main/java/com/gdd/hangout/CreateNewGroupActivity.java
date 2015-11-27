@@ -1,4 +1,4 @@
-package com.tcs.android.hangout;
+package com.gdd.hangout;
 
 import android.content.Intent;
 import android.os.Bundle;
