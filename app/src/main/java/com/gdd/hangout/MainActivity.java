@@ -9,6 +9,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import com.gdd.hangout.R;
 
@@ -29,6 +31,12 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+        //Retrieve From Database and Below is a Temporary Code
+        ListView groupsListView = (ListView)findViewById(R.id.listViewGroups);
+        String groupNames[]={"College -2015- GROUP","School-2000-GROUP","Cricket-Tournament-GROUP","Buddies-GROUP"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,R.layout.group_item,R.id.group_name, groupNames);
+        groupsListView.setAdapter(adapter);
     }
 
     public void onCreateNewGroup(View view){

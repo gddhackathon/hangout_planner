@@ -10,41 +10,47 @@
 
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="horizontal"
         android:weightSum="1">
 
         <Button
+            android:id="@+id/buttonGroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="GROUPS"
-            android:background="@drawable/button_state"
             android:layout_weight="0.80"
-            android:id="@+id/buttonGroup"
+            android:background="@drawable/button_state"
             android:shadowColor="#5C6BC0"
+            android:text="GROUPS"
             android:textColor="@android:color/background_light"
             android:textColorHighlight="@android:color/background_dark" />
 
         <Button
+            android:id="@+id/button2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="CONTACTS"
-            android:background="@drawable/button_state"
-            android:id="@+id/button2"
             android:layout_weight="0.80"
+            android:background="@drawable/button_state"
             android:shadowColor="#5C6BC0"
+            android:text="CONTACTS"
             android:textColor="@android:color/background_light"
-            android:textColorHighlight="@android:color/background_dark"/>
+            android:textColorHighlight="@android:color/background_dark" />
 
         <Button
+            android:id="@+id/button3"
             android:layout_width="171dp"
             android:layout_height="wrap_content"
-            android:text="PREVIOUS TRIPS"
             android:background="@drawable/button_state"
             android:shadowColor="#5C6BC0"
+            android:text="PREVIOUS TRIPS"
             android:textColor="@android:color/background_light"
-            android:textColorHighlight="@android:color/background_dark"
-            android:id="@+id/button3" />
+            android:textColorHighlight="@android:color/background_dark" />
     </LinearLayout>
+
+    <ListView
+        android:id="@+id/listViewGroups"
+        android:layout_width="match_parent"
+        android:layout_marginTop="50dp"
+        android:layout_height="wrap_content"></ListView>
 </RelativeLayout>
