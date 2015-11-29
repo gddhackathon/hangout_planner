@@ -11,6 +11,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.gdd.hangout.R;
 
@@ -42,6 +44,40 @@ public class MainActivity extends AppCompatActivity {
     public void onCreateNewGroup(View view){
         Intent intent = new Intent(this, CreateNewGroupActivity.class);
         startActivity(intent);
+    }
+
+    public void showContacts(View view){
+        hideGroupsList();
+        showContactsList();
+        TextView tv =(TextView) this.findViewById(R.id.textViewTest);
+        tv.setText("-- Under Construction --");
+        Toast.makeText(getApplicationContext(),
+                "THIS TAB WILL SHOW ALL THE CONTACTS OF PHONE", Toast.LENGTH_LONG).show();
+    }
+
+    public void showGroups(View view){
+        showGroupsList();
+        hideContactsList();
+    }
+
+    private void showGroupsList() {
+        hideContactsList();
+        ListView groupsListView = (ListView)findViewById(R.id.listViewGroups);
+        groupsListView.setVisibility(View.VISIBLE);
+    }
+
+    private void hideContactsList() {
+        TextView textView = (TextView)findViewById(R.id.textViewTest);
+        textView.setVisibility(View.GONE);
+    }
+    private void showContactsList() {
+        TextView textView = (TextView)findViewById(R.id.textViewTest);
+        textView.setVisibility(View.VISIBLE);
+    }
+
+    private void hideGroupsList() {
+        ListView groupsListView = (ListView)findViewById(R.id.listViewGroups);
+        groupsListView.setVisibility(View.GONE);
     }
 
     @Override
