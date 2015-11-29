@@ -16,11 +16,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Please provide group subject and optional group icon"
+        android:text="Please provide Group Details"
         android:id="@+id/textView3"
         android:textColor="#2c318e"
-        android:layout_marginLeft="96dp"
-        android:layout_marginStart="96dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
@@ -39,32 +37,49 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/groupName"
+        android:hint="Group Name"
+        android:maxLength="25"
         android:layout_below="@+id/view"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:hint="Please enter group name"
-        android:maxLength="25" />
+        android:layout_marginTop="17dp"
+        android:layout_alignRight="@+id/view"
+        android:layout_alignEnd="@+id/view" />
+
+    <ImageView
+        android:id="@+id/imgView"
+        android:layout_width="wrap_content"
+        android:src="@drawable/ic_group_black_24dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignTop="@+id/buttonLoadPicture"
+        android:layout_alignBottom="@+id/view1"
+        android:layout_toLeftOf="@+id/buttonLoadPicture"
+        android:layout_toStartOf="@+id/buttonLoadPicture"></ImageView>
+
+    <Button
+        android:id="@+id/buttonLoadPicture"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:text="Add Group Icon"
+        android:layout_gravity="center"
+        android:layout_marginTop="27dp"
+        android:layout_below="@+id/groupName"
+        android:layout_toRightOf="@+id/textView3"
+        android:layout_toEndOf="@+id/textView3"
+        android:onClick="addGroupIcon"></Button>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@android:color/darker_gray"
-        android:layout_below="@+id/groupName"
+        android:layout_marginTop="23dp"
+        android:id="@+id/view1"
+        android:layout_below="@+id/buttonLoadPicture"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="22dp"
-        android:id="@+id/view1" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Next"
-        android:id="@+id/createNewGroupNext"
-        android:layout_below="@+id/view1"
-        android:layout_alignRight="@+id/textView3"
-        android:layout_alignEnd="@+id/textView3"
-        android:textColor="#3b12d2"
-        android:background="#d5d2ef"
-        android:onClick="addParticipants"/>
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>
