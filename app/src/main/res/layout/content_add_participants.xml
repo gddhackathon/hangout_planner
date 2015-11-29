@@ -12,23 +12,20 @@
     tools:context="com.tcs.hangout.hangout.AddParticipantsActivity"
     tools:showIn="@layout/activity_add_participants">
 
-    <EditText
-        android:layout_width="wrap_content"
+    <!-- Editext for Search -->
+    <EditText android:id="@+id/inputSearch"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:text="Name"
-        android:ems="10"
-        android:id="@+id/editText"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:hint="Search Contacts.."
+        android:inputType="textVisiblePassword"
+        android:layout_toLeftOf="@+id/addParticipantsButton"
+        android:layout_toStartOf="@+id/addParticipantsButton" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Add"
         android:id="@+id/addParticipantsButton"
-        android:layout_alignBottom="@+id/editText"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
@@ -36,10 +33,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/listViewContacts"
-        android:layout_below="@+id/editText"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="41dp" />
+        android:layout_below="@+id/addParticipantsButton" />
 
 
 </RelativeLayout>

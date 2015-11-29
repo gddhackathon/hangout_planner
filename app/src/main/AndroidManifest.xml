@@ -29,7 +29,9 @@
         <activity
             android:name=".AddParticipantsActivity"
             android:label="@string/title_activity_add_participants"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden">
+        </activity>
     </application>
 
 </manifest>
