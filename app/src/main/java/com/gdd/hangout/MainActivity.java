@@ -16,6 +16,8 @@ import android.widget.Toast;
 
 import com.gdd.hangout.R;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -36,9 +38,15 @@ public class MainActivity extends AppCompatActivity {
 
         //Retrieve From Database and Below is a Temporary Code
         ListView groupsListView = (ListView)findViewById(R.id.listViewGroups);
-        String groupNames[]={"College -2015- GROUP","School-2000-GROUP","Cricket-Tournament-GROUP","Buddies-GROUP"};
+        String groupNames[]= getGroupNames();
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,R.layout.group_item,R.id.group_name, groupNames);
         groupsListView.setAdapter(adapter);
+    }
+
+    private String[] getGroupNames(){
+        GroupDbHelper groupDbHelper = new GroupDbHelper(this);
+        ArrayList<String> groupNames = groupDbHelper.getGroupNames();
+        return groupNames.toArray(new String[groupNames.size()]);
     }
 
     public void onCreateNewGroup(View view){

@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 
 public class CreateNewGroupActivity extends AppCompatActivity {
 
@@ -37,6 +38,10 @@ public class CreateNewGroupActivity extends AppCompatActivity {
     }
 
     public void addParticipants(View view) {
+        EditText groupName = (EditText) findViewById(R.id.groupName);
+        GroupDbHelper groupDbHelper = new GroupDbHelper(this);
+        System.out.println(groupName);
+        groupDbHelper.createGroup(groupName.getText().toString());
         Intent intent = new Intent(this, AddParticipantsActivity.class);
         startActivity(intent);
     }
