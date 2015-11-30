@@ -1,10 +1,6 @@
 package com.gdd.hangout;
 
-import android.content.ContentResolver;
-import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -15,11 +11,8 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.SearchView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 public class AddParticipantsActivity extends AppCompatActivity {
@@ -54,7 +47,7 @@ public class AddParticipantsActivity extends AppCompatActivity {
        // fetchContacts();
         inputSearch = (EditText) findViewById(R.id.inputSearch);
         lv = (ListView)findViewById(R.id.listViewContacts);
-        List<String> contacts = displayContacts();
+        List<String> contacts = ContactsUtil.displayContacts(getContentResolver());
         adapter = new ArrayAdapter<String>(this,R.layout.contacts_list_item,R.id.contact_name, contacts);
         lv.setAdapter(adapter);
 
@@ -79,35 +72,6 @@ public class AddParticipantsActivity extends AppCompatActivity {
             }
         });
 
-    }
-
-    private List<String> displayContacts() {
-
-        List<String> contacts = new ArrayList<String>();
-        ContentResolver cr = getContentResolver();
-        Cursor cur = cr.query(ContactsContract.Contacts.CONTENT_URI,
-                null, null, null, null);
-        if (cur.getCount() > 0) {
-            while (cur.moveToNext()) {
-                String id = cur.getString(cur.getColumnIndex(ContactsContract.Contacts._ID));
-                String name = cur.getString(cur.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
-                if (Integer.parseInt(cur.getString(
-                        cur.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER))) > 0) {
-                    Cursor pCur = cr.query(
-                            ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
-                            null,
-                            ContactsContract.CommonDataKinds.Phone.CONTACT_ID +" = ?",
-                            new String[]{id}, null);
-                    while (pCur.moveToNext()) {
-                        String phoneNo = pCur.getString(pCur.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
-                        // Toast.makeText(this, "Name: " + name + ", Phone No: " + phoneNo, Toast.LENGTH_SHORT).show();
-                        contacts.add(name + " : " + phoneNo);
-                    }
-                    pCur.close();
-                }
-            }
-        }
-        return contacts;
     }
 
 }

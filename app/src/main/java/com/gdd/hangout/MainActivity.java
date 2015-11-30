@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.gdd.hangout.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -57,10 +58,11 @@ public class MainActivity extends AppCompatActivity {
     public void showContacts(View view){
         hideGroupsList();
         showContactsList();
-        TextView tv =(TextView) this.findViewById(R.id.textViewTest);
-        tv.setText("-- Under Construction --");
-        Toast.makeText(getApplicationContext(),
-                "THIS TAB WILL SHOW ALL THE CONTACTS OF PHONE", Toast.LENGTH_LONG).show();
+        ListView lvContacts = (ListView)findViewById(R.id.listContacts);
+        List<String> contacts = ContactsUtil.displayContacts(getContentResolver());
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,R.layout.contacts_list_item,R.id.contact_name, contacts);
+        lvContacts.setAdapter(adapter);
+
     }
 
     public void showGroups(View view){
@@ -75,12 +77,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void hideContactsList() {
-        TextView textView = (TextView)findViewById(R.id.textViewTest);
-        textView.setVisibility(View.GONE);
+        ListView listView = (ListView)findViewById(R.id.listContacts);
+        listView.setVisibility(View.GONE);
     }
     private void showContactsList() {
-        TextView textView = (TextView)findViewById(R.id.textViewTest);
-        textView.setVisibility(View.VISIBLE);
+        ListView listView = (ListView)findViewById(R.id.listContacts);
+        listView.setVisibility(View.VISIBLE);
     }
 
     private void hideGroupsList() {
