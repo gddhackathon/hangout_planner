@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -37,11 +38,25 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //Retrieve From Database and Below is a Temporary Code
+        //TODO Retrieve From Database and Below is a Temporary Code
         ListView groupsListView = (ListView)findViewById(R.id.listViewGroups);
         String groupNames[]= getGroupNames();
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,R.layout.group_item,R.id.group_name, groupNames);
         groupsListView.setAdapter(adapter);
+
+        //TODO Onclick Of Group List item
+        onclickGroupListItem(groupsListView);
+    }
+
+    private void onclickGroupListItem(ListView groupsListView) {
+        groupsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> av, View view, int i, long l) {
+                Intent intent = new Intent(getApplication(),GroupDetails.class);
+                intent.putExtra("groupName", av.getItemAtPosition(i).toString());
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+            }
+        });
     }
 
     private String[] getGroupNames(){
