@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
         hideGroupsList();
         showContactsList();
         ListView lvContacts = (ListView)findViewById(R.id.listContacts);
-        List<String> contacts = ContactsUtil.displayContacts(getContentResolver());
+        List<String> contacts = ContactsUtil.getAllSavedContacts(MainActivity.this);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,R.layout.contacts_list_item,R.id.contact_name, contacts);
         lvContacts.setAdapter(adapter);
 

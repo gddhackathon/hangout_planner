@@ -70,7 +70,6 @@ public class GroupDbHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = getReadableDatabase();
         Cursor groupCursor = db.query(GroupContract.TABLE_NAME, null, null, null, null, null, null);
         while (groupCursor.moveToNext()) {
-            Group group = new Group();
             groupNames.add(groupCursor.getString(groupCursor.getColumnIndex(GroupContract.GroupEntry.COLUMN_NAME_GROUP_NAME)));
         }
 

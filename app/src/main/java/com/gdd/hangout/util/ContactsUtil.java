@@ -1,10 +1,12 @@
 package com.gdd.hangout.util;
 
+import android.app.Activity;
 import android.content.ContentResolver;
 import android.database.Cursor;
 import android.provider.ContactsContract;
 
 import com.gdd.hangout.db.ContactDbHelper;
+import com.gdd.hangout.model.Contact;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +45,27 @@ public class ContactsUtil {
         return contacts;
     }
 
-    // public static List<String> getContacts(String groupName){
-    //    ContactDbHelper contactDbHelper = new ContactDbHelper();
-    //}
+    public static List<String> getContactsForGroup (String groupName, Activity activity){
+        List<String> contactInfo = new ArrayList<String>();
+        ContactDbHelper contactDbHelper = new ContactDbHelper(activity);
+        List<Contact> contacts = contactDbHelper.getContacts(groupName);
+        System.out.println(contacts.toArray().toString());
+        for(Contact contact : contacts){
+            System.out.println(contact.getName() + " : " + contact.getPhoneNumber());
+            contactInfo.add(contact.getName() + " : " + contact.getPhoneNumber());
+        }
+        return contactInfo;
+    }
+
+    public static List<String> getAllSavedContacts(Activity activity){
+        List<String> contactInfo = new ArrayList<String>();
+        ContactDbHelper contactDbHelper = new ContactDbHelper(activity);
+        List<Contact> contacts = contactDbHelper.getAllSavedContats();
+        System.out.println(contacts.toArray().toString());
+        for(Contact contact : contacts){
+            System.out.println(contact.getName() + " : " + contact.getPhoneNumber() + " : " + contact.getGroupName());
+            contactInfo.add(contact.getName() + " : " + contact.getPhoneNumber() + " : " + contact.getGroupName());
+        }
+        return contactInfo;
+    }
 }

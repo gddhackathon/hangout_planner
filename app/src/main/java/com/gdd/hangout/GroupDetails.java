@@ -18,6 +18,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.gdd.hangout.R;
+import com.gdd.hangout.util.ContactsUtil;
 
 public class GroupDetails extends AppCompatActivity {
 
@@ -45,8 +46,8 @@ public class GroupDetails extends AppCompatActivity {
 
         //TODO: Get the Contacts Based on Group Information
         ListView contactsListView = (ListView) findViewById(R.id.listViewContacts);
-        String groupMembers[] = {"Ganesh ", "Debarshi", " David"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.group_item, R.id.group_name, groupMembers);
+        //String groupMembers[] = {"Ganesh ", "Debarshi", " David"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.contacts_list_item,R.id.contact_name, ContactsUtil.getContactsForGroup(groupName,this));
         contactsListView.setAdapter(adapter);
 
     }

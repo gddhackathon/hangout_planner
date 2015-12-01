@@ -34,7 +34,7 @@ public class AddParticipantsActivity extends AppCompatActivity {
 
     private ListView selectedContacts;
     private ArrayAdapter<String> scViewAdapter;
-    private static List<String> selectedContcts = new ArrayList<String>();
+    private String groupName;
     // Search EditText
     EditText inputSearch;
 
@@ -54,23 +54,24 @@ public class AddParticipantsActivity extends AppCompatActivity {
             }
         });
 
-        //System.out.println(getIntent().getStringExtra("groupName"));
-        //Bundle bundle = getIntent().getExtras();
-        //System.out.println(bundle);
-        //String groupName = bundle.getString("groupName");
+        System.out.println(getIntent().getStringExtra("groupName"));
+        Bundle bundle = getIntent().getExtras();
+        System.out.println(bundle);
+        groupName = bundle.getString("groupName");
+        System.out.println("Bundle Group Name" + groupName);
 
         inputSearch = (EditText) findViewById(R.id.inputSearch);
         lv = (ListView)findViewById(R.id.listViewContacts);
         List<String> contacts = ContactsUtil.displayContacts(getContentResolver());
         adapter = new ArrayAdapter<String>(this,R.layout.contacts_list_item,R.id.contact_name, contacts);
         lv.setAdapter(adapter);
-        lv.setVisibility(View.VISIBLE);
+        lv.setVisibility(View.GONE);
 
         //show selected contacts
         selectedContacts = (ListView)findViewById(R.id.selectedContacts);
-        scViewAdapter = new ArrayAdapter<String>(this,R.layout.selected_contacts_list_item,R.id.contact_name, getContactsForGroup("us friends"));
-        selectedContacts.setAdapter(adapter);
-        selectedContacts.setVisibility(View.GONE);
+        scViewAdapter = new ArrayAdapter<String>(this,R.layout.selected_contacts_list_item,R.id.selected_contact_name, ContactsUtil.getContactsForGroup(groupName, this));
+        selectedContacts.setAdapter(scViewAdapter);
+        selectedContacts.setVisibility(View.VISIBLE);
 
         inputSearch.addTextChangedListener(new TextWatcher() {
 
@@ -106,26 +107,17 @@ public class AddParticipantsActivity extends AppCompatActivity {
                 final String item = (String) parent.getItemAtPosition(position);
                 System.out.println(item);
                 Intent intent = new Intent(AddParticipantsActivity.this, AddContactActivity.class);
-                Bundle b = new Bundle();
+                Bundle bundle = new Bundle();
                 String[] contactName = item.split(":");
                 Person person = new Person(contactName[0].trim(), contactName[1].trim(), "", "", "", "", "", null);
-                b.putParcelable("person", person);
-                intent.putExtras(b);
-                intent.putExtra("groupName", item);
+                bundle.putParcelable("person", person);
+                bundle.putString("groupName", groupName);
+                intent.putExtras(bundle);
                 startActivityForResult(intent, 1);
 
             }
         });
 
-    }
-    private List<String> getContactsForGroup (String groupName){
-        List<String> contactInfo = new ArrayList<String>();
-        ContactDbHelper contactDbHelper = new ContactDbHelper(this);
-        List<Contact> contacts = contactDbHelper.getContats(groupName);
-        for(Contact contact : contacts){
-            contactInfo.add(contact.getName() + " : " + contact.getPhoneNumber());
-        }
-        return contactInfo;
     }
 
 }

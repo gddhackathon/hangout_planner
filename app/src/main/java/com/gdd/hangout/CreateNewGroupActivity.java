@@ -81,19 +81,6 @@ public class CreateNewGroupActivity extends AppCompatActivity {
         return true;
     }
 
-    public void addParticipants(View view) {
-        EditText groupName = (EditText) findViewById(R.id.groupName);
-        GroupDbHelper groupDbHelper = new GroupDbHelper(this);
-        System.out.println(groupName);
-        groupDbHelper.createGroup(groupName.getText().toString());
-        Intent intent = new Intent(CreateNewGroupActivity.this, AddParticipantsActivity.class);
-        Bundle bundle = new Bundle();
-        bundle.putString("groupName", "David");
-        intent.putExtra("groupName", "David");
-        intent.putExtras(bundle);
-        startActivity(intent);
-    }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -107,7 +94,15 @@ public class CreateNewGroupActivity extends AppCompatActivity {
         }
 
         if (id == R.id.action_next){
-            Intent intent = new Intent(this, AddParticipantsActivity.class);
+            EditText groupName = (EditText) findViewById(R.id.groupName);
+            GroupDbHelper groupDbHelper = new GroupDbHelper(this);
+            System.out.println(groupName);
+            groupDbHelper.createGroup(groupName.getText().toString());
+            Intent intent = new Intent(CreateNewGroupActivity.this, AddParticipantsActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putString("groupName", groupName.getText().toString());
+            intent.putExtra("groupName", groupName.getText().toString());
+            intent.putExtras(bundle);
             startActivity(intent);
             return true;
         }

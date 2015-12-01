@@ -21,9 +21,6 @@ public class AddContactActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        Intent intent = getIntent();
-        groupName = intent.getStringExtra(CreateNewGroupActivity.GROUP_NAME);
-
         Bundle bundle = this.getIntent().getExtras();
         person = bundle.getParcelable("person");
 
@@ -36,12 +33,11 @@ public class AddContactActivity extends AppCompatActivity {
 
     public void addContact(View view){
 
-        Intent intent = getIntent();
-        //String groupName = intent.getStringExtra("GROUP_NAME");
-
         ContactDbHelper contactDbHelper = new ContactDbHelper(this);
         Bundle bundle = this.getIntent().getExtras();
         person = bundle.getParcelable("person");
+        groupName = bundle.getString("groupName");
+        System.out.println("Group Name :" + groupName);
 
         TextView name =  (TextView) findViewById(R.id.textView2);
         TextView phoneNumber =  (TextView) findViewById(R.id.textView5);
@@ -51,10 +47,13 @@ public class AddContactActivity extends AppCompatActivity {
         TextView country =  (TextView) findViewById(R.id.editText4);
         TextView zipCode =  (TextView) findViewById(R.id.editText5);
         TextView interest =  (TextView) findViewById(R.id.editText6);
-        contactDbHelper.createContact(name.getText().toString(), "us friends",phoneNumber.getText().toString(),
+        contactDbHelper.createContact(name.getText().toString(), groupName, phoneNumber.getText().toString(),
                 street.getText().toString(), city.getText().toString(),
                 state.getText().toString(), country.getText().toString(), zipCode.getText().toString(), interest.getText().toString());
-        Intent countryEdit = new Intent(AddContactActivity.this,AddParticipantsActivity.class);
+        Intent intent = new Intent(AddContactActivity.this,AddParticipantsActivity.class);
+        bundle.putString("groupName", groupName);
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 
 }
