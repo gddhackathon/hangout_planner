@@ -1,4 +1,4 @@
-package com.gdd.hangout;
+package com.gdd.hangout.db;
 
 import android.provider.BaseColumns;
 

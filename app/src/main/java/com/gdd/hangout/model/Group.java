@@ -1,4 +1,4 @@
-package com.gdd.hangout;
+package com.gdd.hangout.model;
 
 /**
  * Created by ANANDHAKRISHNAN on 11/29/2015.

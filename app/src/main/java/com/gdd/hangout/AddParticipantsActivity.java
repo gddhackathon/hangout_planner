@@ -15,6 +15,8 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.gdd.hangout.db.ContactDbHelper;
+import com.gdd.hangout.model.Contact;
 import com.gdd.hangout.model.Person;
 import com.gdd.hangout.util.ContactsUtil;
 
@@ -52,19 +54,21 @@ public class AddParticipantsActivity extends AppCompatActivity {
             }
         });
 
-        Intent intent = getIntent();
-        //final String groupName = intent.getStringExtra(CreateNewGroupActivity.GROUP_NAME).toString();
+        //System.out.println(getIntent().getStringExtra("groupName"));
+        //Bundle bundle = getIntent().getExtras();
+        //System.out.println(bundle);
+        //String groupName = bundle.getString("groupName");
 
         inputSearch = (EditText) findViewById(R.id.inputSearch);
         lv = (ListView)findViewById(R.id.listViewContacts);
         List<String> contacts = ContactsUtil.displayContacts(getContentResolver());
         adapter = new ArrayAdapter<String>(this,R.layout.contacts_list_item,R.id.contact_name, contacts);
         lv.setAdapter(adapter);
-        lv.setVisibility(View.GONE);
+        lv.setVisibility(View.VISIBLE);
 
         //show selected contacts
         selectedContacts = (ListView)findViewById(R.id.selectedContacts);
-        scViewAdapter = new ArrayAdapter<String>(this,R.layout.selected_contacts_list_item,R.id.contact_name, new ArrayList<String>());
+        scViewAdapter = new ArrayAdapter<String>(this,R.layout.selected_contacts_list_item,R.id.contact_name, getContactsForGroup("us friends"));
         selectedContacts.setAdapter(adapter);
         selectedContacts.setVisibility(View.GONE);
 
@@ -78,10 +82,6 @@ public class AddParticipantsActivity extends AppCompatActivity {
                 } else {
                     AddParticipantsActivity.this.adapter.getFilter().filter(cs);
                     lv.setVisibility(View.VISIBLE);
-                }
-                if (selectedContcts.size() > 0) {
-                    //AddParticipantsActivity.this.scViewAdapter.getFilter().filter(cs);
-                    selectedContacts.setVisibility(View.VISIBLE);
                 }
             }
 
@@ -105,10 +105,7 @@ public class AddParticipantsActivity extends AppCompatActivity {
 
                 final String item = (String) parent.getItemAtPosition(position);
                 System.out.println(item);
-                selectedContcts.add(item);
-                AddParticipantsActivity.this.scViewAdapter.addAll(selectedContcts);
-                selectedContacts.setVisibility(View.VISIBLE);
-                Intent intent = new Intent(AddParticipantsActivity.this,AddContactActivity.class);
+                Intent intent = new Intent(AddParticipantsActivity.this, AddContactActivity.class);
                 Bundle b = new Bundle();
                 String[] contactName = item.split(":");
                 Person person = new Person(contactName[0].trim(), contactName[1].trim(), "", "", "", "", "", null);
@@ -120,6 +117,15 @@ public class AddParticipantsActivity extends AppCompatActivity {
             }
         });
 
+    }
+    private List<String> getContactsForGroup (String groupName){
+        List<String> contactInfo = new ArrayList<String>();
+        ContactDbHelper contactDbHelper = new ContactDbHelper(this);
+        List<Contact> contacts = contactDbHelper.getContats(groupName);
+        for(Contact contact : contacts){
+            contactInfo.add(contact.getName() + " : " + contact.getPhoneNumber());
+        }
+        return contactInfo;
     }
 
 }

@@ -22,7 +22,7 @@ import java.io.File;
 public class CreateNewGroupActivity extends AppCompatActivity {
 
     private static int RESULT_LOAD_IMAGE = 1;
-    public static String GROUP_NAME = "GROUP_NAME";
+    public static String GROUP_NAME = "groupName";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,8 +86,11 @@ public class CreateNewGroupActivity extends AppCompatActivity {
         GroupDbHelper groupDbHelper = new GroupDbHelper(this);
         System.out.println(groupName);
         groupDbHelper.createGroup(groupName.getText().toString());
-        Intent intent = new Intent(this, AddParticipantsActivity.class);
-        intent.putExtra(GROUP_NAME, groupName.getText());
+        Intent intent = new Intent(CreateNewGroupActivity.this, AddParticipantsActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("groupName", "David");
+        intent.putExtra("groupName", "David");
+        intent.putExtras(bundle);
         startActivity(intent);
     }
 

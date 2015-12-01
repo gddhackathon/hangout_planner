@@ -48,9 +48,9 @@ public class AddContactActivity extends AppCompatActivity {
         TextView street =  (TextView) findViewById(R.id.editText);
         TextView city =  (TextView) findViewById(R.id.editText2);
         TextView state =  (TextView) findViewById(R.id.editText3);
-        TextView country =  (TextView) findViewById(R.id.editText5);
-        TextView zipCode =  (TextView) findViewById(R.id.editText6);
-        TextView interest =  (TextView) findViewById(R.id.editText5);
+        TextView country =  (TextView) findViewById(R.id.editText4);
+        TextView zipCode =  (TextView) findViewById(R.id.editText5);
+        TextView interest =  (TextView) findViewById(R.id.editText6);
         contactDbHelper.createContact(name.getText().toString(), "us friends",phoneNumber.getText().toString(),
                 street.getText().toString(), city.getText().toString(),
                 state.getText().toString(), country.getText().toString(), zipCode.getText().toString(), interest.getText().toString());

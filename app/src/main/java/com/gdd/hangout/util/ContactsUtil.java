@@ -1,8 +1,10 @@
-package com.gdd.hangout;
+package com.gdd.hangout.util;
 
 import android.content.ContentResolver;
 import android.database.Cursor;
 import android.provider.ContactsContract;
+
+import com.gdd.hangout.db.ContactDbHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,4 +42,8 @@ public class ContactsUtil {
         }
         return contacts;
     }
+
+    // public static List<String> getContacts(String groupName){
+    //    ContactDbHelper contactDbHelper = new ContactDbHelper();
+    //}
 }

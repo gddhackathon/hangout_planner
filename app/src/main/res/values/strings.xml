@@ -6,4 +6,5 @@
     <string name="action_create_group">New Group</string>
     <string name="action_next">Next</string>
     <string name="title_activity_group_details">GroupDetails</string>
+    <string name="title_activity_add_contact">AddContactActivity</string>
 </resources>

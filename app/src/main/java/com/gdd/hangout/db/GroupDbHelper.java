@@ -1,4 +1,4 @@
-package com.gdd.hangout;
+package com.gdd.hangout.db;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+
+import com.gdd.hangout.model.Group;
 
 import java.util.ArrayList;
 
@@ -80,6 +82,7 @@ public class GroupDbHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(GroupContract.SQL_CREATE_TABLE);
+        db.execSQL(ContactContract.SQL_CREATE_TABLE);
         initializeExampleData(db);
     }
 
