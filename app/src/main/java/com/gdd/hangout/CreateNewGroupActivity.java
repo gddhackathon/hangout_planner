@@ -2,8 +2,6 @@ package com.gdd.hangout;
 
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -17,11 +15,14 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.gdd.hangout.db.GroupDbHelper;
+
 import java.io.File;
 
 public class CreateNewGroupActivity extends AppCompatActivity {
 
     private static int RESULT_LOAD_IMAGE = 1;
+    public static String GROUP_NAME = "GROUP_NAME";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +87,7 @@ public class CreateNewGroupActivity extends AppCompatActivity {
         System.out.println(groupName);
         groupDbHelper.createGroup(groupName.getText().toString());
         Intent intent = new Intent(this, AddParticipantsActivity.class);
+        intent.putExtra(GROUP_NAME, groupName.getText());
         startActivity(intent);
     }
 
