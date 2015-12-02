@@ -5,6 +5,7 @@
     <string name="title_activity_add_participants">AddParticipantsActivity</string>
     <string name="action_create_group">New Group</string>
     <string name="action_next">Next</string>
+    <string name="add_contacts">Add Contacts</string>
     <string name="title_activity_group_details">GroupDetails</string>
     <string name="title_activity_add_contact">AddContactActivity</string>
 </resources>

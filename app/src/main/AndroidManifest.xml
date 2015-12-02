@@ -6,10 +6,18 @@
         android:minSdkVersion="5"
         android:targetSdkVersion="17" />
 
+
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true" />
 
     <application
         android:allowBackup="true"
@@ -29,13 +37,24 @@
         </activity>
         <activity
             android:name=".CreateNewGroupActivity"
+            android:parentActivityName=".MainActivity"
             android:label="@string/title_activity_create_new_group"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar">
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value="com.gdd.hangout.MainActivity" />
+        </activity>
+
         <activity
             android:name=".AddParticipantsActivity"
+            android:parentActivityName=".CreateNewGroupActivity"
             android:label="@string/title_activity_add_participants"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateHidden"></activity>
+            android:windowSoftInputMode="stateHidden">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.gdd.hangout.CreateNewGroupActivity" />
+        </activity>
         <activity
             android:name=".GroupDetails"
             android:label="@string/title_activity_group_details"
@@ -50,6 +69,10 @@
             android:label="@string/title_activity_add_contact"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
+
+        <meta-data
+            android:name="com.google.android.maps.v2.API_KEY"
+            android:value="AIzaSyA8y0142vso6cqapcuBlPFrbuPqwLt7S40" />
     </application>
 
 </manifest>

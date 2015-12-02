@@ -8,6 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -16,6 +18,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.gdd.hangout.db.ContactDbHelper;
+import com.gdd.hangout.db.GroupDbHelper;
 import com.gdd.hangout.model.Contact;
 import com.gdd.hangout.model.Person;
 import com.gdd.hangout.util.ContactsUtil;
@@ -37,6 +40,7 @@ public class AddParticipantsActivity extends AppCompatActivity {
     private String groupName;
     // Search EditText
     EditText inputSearch;
+    private List<String> selectedContactsList = new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +48,7 @@ public class AddParticipantsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_participants);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,11 +71,6 @@ public class AddParticipantsActivity extends AppCompatActivity {
         lv.setAdapter(adapter);
         lv.setVisibility(View.GONE);
 
-        //show selected contacts
-        selectedContacts = (ListView)findViewById(R.id.selectedContacts);
-        scViewAdapter = new ArrayAdapter<String>(this,R.layout.selected_contacts_list_item,R.id.selected_contact_name, ContactsUtil.getContactsForGroup(groupName, this));
-        selectedContacts.setAdapter(scViewAdapter);
-        selectedContacts.setVisibility(View.VISIBLE);
 
         inputSearch.addTextChangedListener(new TextWatcher() {
 
@@ -109,16 +108,58 @@ public class AddParticipantsActivity extends AppCompatActivity {
                 Intent intent = new Intent(AddParticipantsActivity.this, AddContactActivity.class);
                 Bundle bundle = new Bundle();
                 String[] contactName = item.split(":");
-                Person person = new Person(contactName[0].trim(), contactName[1].trim(), "", "", "", "", "", null);
-                bundle.putParcelable("person", person);
-                bundle.putString("groupName", groupName);
-                intent.putExtras(bundle);
-                startActivityForResult(intent, 1);
+                //Person person = new Person(contactName[0].trim(), contactName[1].trim(), "", "", "", "", "", null);
+                selectedContactsList.add(contactName[0].trim() +":"+ contactName[1].trim());
+                //bundle.putParcelable("person", person);
+                //bundle.putString("groupName", groupName);
+                //intent.putExtras(bundle);
+                //startActivityForResult(intent, 1);
+                //show selected contacts
+                selectedContacts = (ListView)findViewById(R.id.selectedContacts);
+                scViewAdapter = new ArrayAdapter<String>(AddParticipantsActivity.this,R.layout.selected_contacts_list_item,R.id.selected_contact_name, selectedContactsList);
+                selectedContacts.setAdapter(scViewAdapter);
+                selectedContacts.setVisibility(View.VISIBLE);
 
             }
         });
 
+
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.add_contact_to_group_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
+        if (id == R.id.addContactsToGroup){
+            GroupDbHelper groupDbHelper = new GroupDbHelper(this);
+            System.out.println(groupName);
+            groupDbHelper.createGroup(groupName);
+            ContactsUtil.insertContacts(AddParticipantsActivity.this, selectedContactsList, groupName);
+            Intent intent = new Intent(AddParticipantsActivity.this, MainActivity.class);
+            /*Bundle bundle = new Bundle();
+            bundle.putString("groupName", groupName.getText().toString());
+            intent.putExtra("groupName", groupName.getText().toString());
+            intent.putExtras(bundle);*/
+            startActivity(intent);
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 }
 

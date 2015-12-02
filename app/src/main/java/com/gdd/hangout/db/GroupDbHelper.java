@@ -25,18 +25,18 @@ public class GroupDbHelper extends SQLiteOpenHelper {
 
     public void createGroup(String groupName) {
         SQLiteDatabase db = getWritableDatabase();
-
         ContentValues groupValues = new ContentValues();
         groupValues.put(GroupContract.GroupEntry.COLUMN_NAME_GROUP_NAME, groupName);
         db.insert(GroupContract.TABLE_NAME, null, groupValues);
+        db.close();
         }
 
     public Group getGroup(String groupName) {
         SQLiteDatabase db = getReadableDatabase();
         Cursor groupCursor = db.query(GroupContract.TABLE_NAME,
                 null,
-                GroupContract.GroupEntry.COLUMN_NAME_GROUP_NAME+ "=?",
-                new String[] { groupName },
+                GroupContract.GroupEntry.COLUMN_NAME_GROUP_NAME + "=?",
+                new String[]{groupName},
                 null,
                 null,
                 null);
@@ -44,6 +44,7 @@ public class GroupDbHelper extends SQLiteOpenHelper {
         Group group = new Group();
         group.setGroupName(groupCursor.getString(groupCursor.getColumnIndex(GroupContract.GroupEntry.COLUMN_NAME_GROUP_NAME)));
         groupCursor.close();
+        db.close();
         return (group);
     }
 
@@ -52,15 +53,18 @@ public class GroupDbHelper extends SQLiteOpenHelper {
         ArrayList<Group> groups = new ArrayList<Group>();
         SQLiteDatabase db = getReadableDatabase();
         Cursor groupCursor = db.query(GroupContract.TABLE_NAME, null, null, null, null, null, null);
-        while (groupCursor.moveToNext()) {
-            Group group = new Group();
-            group.setGroupName(groupCursor.getString(groupCursor.getColumnIndex(GroupContract.GroupEntry.COLUMN_NAME_GROUP_NAME)));
+        try {
+            while (groupCursor.moveToNext()) {
+                Group group = new Group();
+                group.setGroupName(groupCursor.getString(groupCursor.getColumnIndex(GroupContract.GroupEntry.COLUMN_NAME_GROUP_NAME)));
 
-            groups.add(group);
+                groups.add(group);
+            }
         }
-
-        groupCursor.close();
-
+        finally {
+            groupCursor.close();
+            db.close();
+        }
         return (groups);
     }
 
@@ -69,12 +73,15 @@ public class GroupDbHelper extends SQLiteOpenHelper {
         ArrayList<String> groupNames = new ArrayList<String>();
         SQLiteDatabase db = getReadableDatabase();
         Cursor groupCursor = db.query(GroupContract.TABLE_NAME, null, null, null, null, null, null);
-        while (groupCursor.moveToNext()) {
-            groupNames.add(groupCursor.getString(groupCursor.getColumnIndex(GroupContract.GroupEntry.COLUMN_NAME_GROUP_NAME)));
+        try {
+            while (groupCursor.moveToNext()) {
+                groupNames.add(groupCursor.getString(groupCursor.getColumnIndex(GroupContract.GroupEntry.COLUMN_NAME_GROUP_NAME)));
+            }
         }
-
-        groupCursor.close();
-
+        finally{
+            groupCursor.close();
+            db.close();
+        }
         return (groupNames);
     }
 
@@ -82,7 +89,7 @@ public class GroupDbHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(GroupContract.SQL_CREATE_TABLE);
         db.execSQL(ContactContract.SQL_CREATE_TABLE);
-        initializeExampleData(db);
+        //initializeExampleData(db);
     }
 
     private void initializeExampleData(SQLiteDatabase db)

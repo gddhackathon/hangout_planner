@@ -68,4 +68,13 @@ public class ContactsUtil {
         }
         return contactInfo;
     }
+
+    public static void insertContacts(Activity activity, List<String> selectedContacts, String groupname){
+        ContactDbHelper contactDbHelper = new ContactDbHelper(activity);
+        for(String selectedContact : selectedContacts){
+            String[] contactName = selectedContact.split(":");
+            System.out.println("contactName = " + contactName);
+            contactDbHelper.createContact(contactName[0].trim(), contactName[1].trim(), "", "", "", "", "", "",groupname);
+        }
+    }
 }

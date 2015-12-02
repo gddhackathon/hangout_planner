@@ -19,8 +19,16 @@ import android.widget.Toast;
 
 import com.gdd.hangout.R;
 import com.gdd.hangout.util.ContactsUtil;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 public class GroupDetails extends AppCompatActivity {
+
+    static final LatLng latLng = new LatLng(21 , 57);
+    private GoogleMap googleMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +58,18 @@ public class GroupDetails extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.contacts_list_item,R.id.contact_name, ContactsUtil.getContactsForGroup(groupName,this));
         contactsListView.setAdapter(adapter);
 
+        /*try {
+            if (googleMap == null) {
+                googleMap = ((MapFragment) getFragmentManager().
+                        findFragmentById(R.id.map)).getMap();
+            }
+            googleMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+            Marker TP = googleMap.addMarker(new MarkerOptions().
+                    position(latLng).title("latLng"));
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }*/
     }
 
     @Override

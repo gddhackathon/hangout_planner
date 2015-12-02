@@ -36,7 +36,9 @@ public class ContactDbHelper extends SQLiteOpenHelper {
         contactValues.put(ContactContract.ContactEntry.COLUMN_NAME_CONTACT_ZIPCODE, zipCode);
         contactValues.put(ContactContract.ContactEntry.COLUMN_NAME_CONTACT_INTEREST, interest);
         contactValues.put(ContactContract.ContactEntry.COLUMN_NAME_CONTACT_GROUP_NAME, groupName);
-        db.insert(ContactContract.TABLE_NAME, null, contactValues);
+        long rowId = db.insert(ContactContract.TABLE_NAME, null, contactValues);
+        System.out.println("rowId" + rowId);
+        db.close();
     }
 
     public ArrayList<Contact> getContacts(String groupName) {
@@ -49,20 +51,26 @@ public class ContactDbHelper extends SQLiteOpenHelper {
                 null,
                 null,
                 null);
-        contactCursor.moveToNext();
-        while (contactCursor.moveToNext()) {
-            Contact contact = new Contact();
-            contact.setName(contactCursor.getString(contactCursor.getColumnIndex(ContactContract.ContactEntry.COLUMN_NAME_CONTACT_NAME)));
-            contact.setPhoneNumber(contactCursor.getString(contactCursor.getColumnIndex(ContactContract.ContactEntry.COLUMN_NAME_CONTACT_NUMBER)));
-            contact.setStreet(contactCursor.getString(contactCursor.getColumnIndex(ContactContract.ContactEntry.COLUMN_NAME_CONTACT_STREET)));
-            contact.setCity(contactCursor.getString(contactCursor.getColumnIndex(ContactContract.ContactEntry.COLUMN_NAME_CONTACT_CITY)));
-            contact.setState(contactCursor.getString(contactCursor.getColumnIndex(ContactContract.ContactEntry.COLUMN_NAME_CONTACT_STATE)));
-            contact.setCountry(contactCursor.getString(contactCursor.getColumnIndex(ContactContract.ContactEntry.COLUMN_NAME_CONTACT_COUNTRY)));
-            contact.setZipCode(contactCursor.getString(contactCursor.getColumnIndex(ContactContract.ContactEntry.COLUMN_NAME_CONTACT_ZIPCODE)));
-            contact.setInterest(contactCursor.getString(contactCursor.getColumnIndex(ContactContract.ContactEntry.COLUMN_NAME_CONTACT_ZIPCODE)));
-            contact.setGroupName(contactCursor.getString(contactCursor.getColumnIndex(ContactContract.ContactEntry.COLUMN_NAME_CONTACT_GROUP_NAME)));
-
-            contacts.add(contact);
+        System.out.println("count" + contactCursor.getCount());
+        try {
+            while (contactCursor.moveToNext()) {
+                System.out.println("inside while");
+                Contact contact = new Contact();
+                contact.setName(contactCursor.getString(contactCursor.getColumnIndex(ContactContract.ContactEntry.COLUMN_NAME_CONTACT_NAME)));
+                contact.setPhoneNumber(contactCursor.getString(contactCursor.getColumnIndex(ContactContract.ContactEntry.COLUMN_NAME_CONTACT_NUMBER)));
+                contact.setStreet(contactCursor.getString(contactCursor.getColumnIndex(ContactContract.ContactEntry.COLUMN_NAME_CONTACT_STREET)));
+                contact.setCity(contactCursor.getString(contactCursor.getColumnIndex(ContactContract.ContactEntry.COLUMN_NAME_CONTACT_CITY)));
+                contact.setState(contactCursor.getString(contactCursor.getColumnIndex(ContactContract.ContactEntry.COLUMN_NAME_CONTACT_STATE)));
+                contact.setCountry(contactCursor.getString(contactCursor.getColumnIndex(ContactContract.ContactEntry.COLUMN_NAME_CONTACT_COUNTRY)));
+                contact.setZipCode(contactCursor.getString(contactCursor.getColumnIndex(ContactContract.ContactEntry.COLUMN_NAME_CONTACT_ZIPCODE)));
+                contact.setInterest(contactCursor.getString(contactCursor.getColumnIndex(ContactContract.ContactEntry.COLUMN_NAME_CONTACT_ZIPCODE)));
+                contact.setGroupName(contactCursor.getString(contactCursor.getColumnIndex(ContactContract.ContactEntry.COLUMN_NAME_CONTACT_GROUP_NAME)));
+                contacts.add(contact);
+            }
+        }
+        finally {
+            contactCursor.close();
+            db.close();
         }
         return (contacts);
     }
@@ -78,19 +86,25 @@ public class ContactDbHelper extends SQLiteOpenHelper {
                 null,
                 null);
         contactCursor.moveToNext();
-        while (contactCursor.moveToNext()) {
-            Contact contact = new Contact();
-            contact.setName(contactCursor.getString(contactCursor.getColumnIndex(ContactContract.ContactEntry.COLUMN_NAME_CONTACT_NAME)));
-            contact.setPhoneNumber(contactCursor.getString(contactCursor.getColumnIndex(ContactContract.ContactEntry.COLUMN_NAME_CONTACT_NUMBER)));
-            contact.setStreet(contactCursor.getString(contactCursor.getColumnIndex(ContactContract.ContactEntry.COLUMN_NAME_CONTACT_STREET)));
-            contact.setCity(contactCursor.getString(contactCursor.getColumnIndex(ContactContract.ContactEntry.COLUMN_NAME_CONTACT_CITY)));
-            contact.setState(contactCursor.getString(contactCursor.getColumnIndex(ContactContract.ContactEntry.COLUMN_NAME_CONTACT_STATE)));
-            contact.setCountry(contactCursor.getString(contactCursor.getColumnIndex(ContactContract.ContactEntry.COLUMN_NAME_CONTACT_COUNTRY)));
-            contact.setZipCode(contactCursor.getString(contactCursor.getColumnIndex(ContactContract.ContactEntry.COLUMN_NAME_CONTACT_ZIPCODE)));
-            contact.setInterest(contactCursor.getString(contactCursor.getColumnIndex(ContactContract.ContactEntry.COLUMN_NAME_CONTACT_ZIPCODE)));
-            contact.setGroupName(contactCursor.getString(contactCursor.getColumnIndex(ContactContract.ContactEntry.COLUMN_NAME_CONTACT_GROUP_NAME)));
+        try {
+            while (contactCursor.moveToNext()) {
+                Contact contact = new Contact();
+                contact.setName(contactCursor.getString(contactCursor.getColumnIndex(ContactContract.ContactEntry.COLUMN_NAME_CONTACT_NAME)));
+                contact.setPhoneNumber(contactCursor.getString(contactCursor.getColumnIndex(ContactContract.ContactEntry.COLUMN_NAME_CONTACT_NUMBER)));
+                contact.setStreet(contactCursor.getString(contactCursor.getColumnIndex(ContactContract.ContactEntry.COLUMN_NAME_CONTACT_STREET)));
+                contact.setCity(contactCursor.getString(contactCursor.getColumnIndex(ContactContract.ContactEntry.COLUMN_NAME_CONTACT_CITY)));
+                contact.setState(contactCursor.getString(contactCursor.getColumnIndex(ContactContract.ContactEntry.COLUMN_NAME_CONTACT_STATE)));
+                contact.setCountry(contactCursor.getString(contactCursor.getColumnIndex(ContactContract.ContactEntry.COLUMN_NAME_CONTACT_COUNTRY)));
+                contact.setZipCode(contactCursor.getString(contactCursor.getColumnIndex(ContactContract.ContactEntry.COLUMN_NAME_CONTACT_ZIPCODE)));
+                contact.setInterest(contactCursor.getString(contactCursor.getColumnIndex(ContactContract.ContactEntry.COLUMN_NAME_CONTACT_ZIPCODE)));
+                contact.setGroupName(contactCursor.getString(contactCursor.getColumnIndex(ContactContract.ContactEntry.COLUMN_NAME_CONTACT_GROUP_NAME)));
 
-            contacts.add(contact);
+                contacts.add(contact);
+            }
+        }
+        finally {
+            contactCursor.close();
+            db.close();
         }
         return (contacts);
     }
