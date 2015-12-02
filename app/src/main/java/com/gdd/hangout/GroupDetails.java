@@ -19,16 +19,9 @@ import android.widget.Toast;
 
 import com.gdd.hangout.R;
 import com.gdd.hangout.util.ContactsUtil;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapFragment;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
+
 
 public class GroupDetails extends AppCompatActivity {
-
-    static final LatLng latLng = new LatLng(21 , 57);
-    private GoogleMap googleMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,7 +92,8 @@ public class GroupDetails extends AppCompatActivity {
                     .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             //TODO Provide an UI for the user to Provide Address
-                            dialog.cancel();
+                        Intent intent = new Intent(getApplication(), CreateNewPlacesActivity.class);
+                            startActivity(intent);
                         }
                     })
                     .setNegativeButton("No", new DialogInterface.OnClickListener() {

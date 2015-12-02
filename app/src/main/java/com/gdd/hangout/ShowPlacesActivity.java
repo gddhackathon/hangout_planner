@@ -16,7 +16,6 @@ import org.json.JSONObject;
 import android.os.AsyncTask;
 import android.widget.ArrayAdapter;
 
-import com.google.android.gms.location.places.Places;
 
 public class ShowPlacesActivity extends ListActivity {
 
