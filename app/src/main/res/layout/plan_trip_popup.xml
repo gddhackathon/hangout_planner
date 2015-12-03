@@ -11,32 +11,34 @@
         android:layout_height="wrap_content"
         android:checked="false"
         android:text="Yes"
+        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
-
-    <EditText
-        android:id="@+id/editTextAddress"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:ems="10"
-        android:enabled="false"
-        android:visibility="gone"
-        android:hint="Provide Place for Hangout..."
-        android:inputType="textPostalAddress"
-        android:layout_below="@+id/checkBox"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
 
     <Button
         android:id="@+id/buttonShowPlaces"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Let's Hangout"
-        android:layout_below="@+id/editTextAddress"
+        android:layout_marginTop="42dp"
+        android:layout_below="@+id/autoCompleteTextView"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
+
+    <AutoCompleteTextView
+        android:id="@+id/autoCompleteTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:visibility="gone"
+        android:hint="Please enter your place"
+        android:layout_below="@+id/checkBox"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <requestFocus />
+    </AutoCompleteTextView>
 
 
 </RelativeLayout>
