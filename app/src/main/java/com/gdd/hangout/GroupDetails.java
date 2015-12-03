@@ -5,6 +5,8 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -29,6 +31,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.gdd.hangout.util.ContactsUtil;
+import com.gdd.hangout.util.GeocodingLocation;
 import com.gdd.hangout.util.GooglePlacesUtil;
 
 import org.json.JSONArray;
@@ -46,6 +49,7 @@ import java.util.ArrayList;
 
 public class GroupDetails extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
+    private String latLon;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -172,6 +176,26 @@ public class GroupDetails extends AppCompatActivity implements AdapterView.OnIte
 
     public void onItemClick(AdapterView adapterView, View view, int position, long id) {
         String str = (String) adapterView.getItemAtPosition(position);
-        Toast.makeText(this, str, Toast.LENGTH_SHORT).show();
+        String address  = str;
+        GeocodingLocation locationAddress = new GeocodingLocation();
+        locationAddress.getAddressFromLocation(address,
+                getApplicationContext(), new GeocoderHandler());
+        Toast.makeText(this, str + latLon, Toast.LENGTH_SHORT).show();
+    }
+
+    private class GeocoderHandler extends Handler {
+        @Override
+        public void handleMessage(Message message) {
+            String locationAddress;
+            switch (message.what) {
+                case 1:
+                    Bundle bundle = message.getData();
+                    locationAddress = bundle.getString("address");
+                    break;
+                default:
+                    locationAddress = null;
+            }
+            latLon = locationAddress;
+        }
     }
 }
