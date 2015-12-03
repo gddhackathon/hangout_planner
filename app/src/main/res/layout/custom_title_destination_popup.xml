@@ -1,0 +1,13 @@
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:text="Do you have a Place in Mind?"
+    style="@style/AppTheme.PopupOverlay"
+    android:capitalize="words"
+    android:contextClickable="false"
+    android:fontFamily="@string/abc_searchview_description_clear"
+    android:fontFeatureSettings="@string/abc_action_bar_up_description"
+    android:textSize="20dp"
+    android:textColor="@android:color/holo_blue_dark"
+    android:theme="@style/Animation.AppCompat.Dialog"
+    android:width="@android:dimen/thumbnail_width" />

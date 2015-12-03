@@ -1,9 +1,7 @@
 package com.gdd.hangout;
 
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.content.Intent;
+import android.app.Dialog;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -13,11 +11,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Toast;
 
-import com.gdd.hangout.R;
 import com.gdd.hangout.util.ContactsUtil;
 
 
@@ -82,36 +81,35 @@ public class GroupDetails extends AppCompatActivity {
         }
 
         if (id == R.id.action_plan_trip) {
-            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-            alertDialogBuilder.setTitle("Plan a Trip");
-
-            // set dialog message
-            alertDialogBuilder
-                    .setMessage("Do you have destination in mind")
-                    .setCancelable(false)
-                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            //TODO Provide an UI for the user to Provide Address
-                        Intent intent = new Intent(getApplication(), CreateNewPlacesActivity.class);
-                            startActivity(intent);
-                        }
-                    })
-                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            //TODO To be implemented later
-                            dialog.cancel();
-                        }
-                    });
-
-            // create alert dialog
-            AlertDialog alertDialog = alertDialogBuilder.create();
-
-            // show it
-            alertDialog.show();
+            // custom dialog
+            showPopUp();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void showPopUp() {
+        final Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
+        dialog.setContentView(R.layout.plan_trip_popup);
+        dialog.getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.custom_title_destination_popup);
+
+        CheckBox checkBox = (CheckBox)dialog.findViewById(R.id.checkBox);
+        checkBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditText editText = (EditText) dialog.findViewById(R.id.editTextAddress);
+                if (((CheckBox) v).isChecked()) {
+                    editText.setVisibility(View.VISIBLE);
+                    editText.setEnabled(true);
+                }else{
+                    editText.setVisibility(View.GONE);
+                    editText.setEnabled(true);
+                }
+            }
+        });
+        dialog.show();
     }
 
 
