@@ -97,7 +97,7 @@ public class CreateNewGroupActivity extends AppCompatActivity {
             EditText groupName = (EditText) findViewById(R.id.groupName);
             GroupDbHelper groupDbHelper = new GroupDbHelper(this);
             System.out.println(groupName);
-            groupDbHelper.createGroup(groupName.getText().toString());
+            //groupDbHelper.createGroup(groupName.getText().toString());
             Intent intent = new Intent(CreateNewGroupActivity.this, AddParticipantsActivity.class);
             Bundle bundle = new Bundle();
             bundle.putString("groupName", groupName.getText().toString());

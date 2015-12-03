@@ -71,10 +71,11 @@ public class ContactsUtil {
 
     public static void insertContacts(Activity activity, List<String> selectedContacts, String groupname){
         ContactDbHelper contactDbHelper = new ContactDbHelper(activity);
+        System.out.println("selectedContacts = " + selectedContacts);
         for(String selectedContact : selectedContacts){
             String[] contactName = selectedContact.split(":");
             System.out.println("contactName = " + contactName);
-            contactDbHelper.createContact(contactName[0].trim(), contactName[1].trim(), "", "", "", "", "", "",groupname);
+            contactDbHelper.createContact(contactName[0].trim(), groupname, contactName[1].trim(), "", "", "", "", "", "");
         }
     }
 }

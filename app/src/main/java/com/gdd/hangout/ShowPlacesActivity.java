@@ -11,7 +11,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 //import org.apache.http.util.ByteArrayBuffer;
-import org.apache.http.util.ByteArrayBuffer;
+//import org.apache.http.util.ByteArrayBuffer;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import android.os.AsyncTask;
@@ -130,16 +130,16 @@ public class ShowPlacesActivity extends AppCompatActivity {
 //
 //            // buffer input stream the result
 ////            BufferedInputStream bis = new BufferedInputStream(is);
-            ByteArrayBuffer baf = new ByteArrayBuffer(20);
+           // ByteArrayBuffer baf = new ByteArrayBuffer(20);
             int current = 0;
 
             while ((current = reader.read()) != -1) {
 
-                baf.append((byte) current);
+               // baf.append((byte) current);
             }
 //
 //            // the result as a string is ready for parsing
-            replyString = new String(baf.toByteArray());
+            //replyString = new String(baf.toByteArray());
 //            System.out.print("Rishi2 :" + replyString);
         } catch (Exception e) {
             e.printStackTrace();
