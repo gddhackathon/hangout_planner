@@ -11,6 +11,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 //import org.apache.http.util.ByteArrayBuffer;
+import org.apache.http.util.ByteArrayBuffer;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import android.os.AsyncTask;
@@ -27,7 +28,7 @@ public class ShowPlacesActivity extends ListActivity {
     final String latitude = "40.7463956";
     final String longtitude = "-73.9852992";
 
-    ArrayAdapter myAdapter;
+    ArrayAdapter<String> myAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,16 +47,16 @@ public class ShowPlacesActivity extends ListActivity {
         new googleplaces().execute();
     }
 
-    private class googleplaces extends AsyncTask {
+    private class googleplaces extends AsyncTask<Void,Void,String> {
         String temp;
 
-        @Override
-        protected Object doInBackground(Object[] params) {
+       @Override
+       protected String doInBackground(Void... params) {
             // make Call to the url
             temp = makeCall("https://maps.googleapis.com/maps/api/place/search/json?location=" + latitude + "," + longtitude + "&radius=100&sensor=true&key=" + GOOGLE_KEY);
             //print the call in the console
             System.out.println("https://maps.googleapis.com/maps/api/place/search/json?location=" + latitude + "," + longtitude + "&radius=100&sensor=true&key=" + GOOGLE_KEY);
-            return "";
+           return temp;
         }
 
         @Override
@@ -63,7 +64,7 @@ public class ShowPlacesActivity extends ListActivity {
             // we can start a progress bar here
         }
 
-//        @Override
+        @Override
         protected void onPostExecute(String result) {
             if (temp == null) {
                 // we have an error to the call
@@ -81,9 +82,9 @@ public class ShowPlacesActivity extends ListActivity {
                 }
 
                 // set the results to the list and show them in the xml
-
-              //  myAdapter = new ArrayAdapter(getApplication().getApplicationContext(), listTitle);
-                //setListAdapter(myAdapter);
+                String temp[] = (String[])listTitle.toArray(new String[listTitle.size()]);
+               myAdapter = new ArrayAdapter<String>(getApplicationContext(),R.layout.places_list_item,temp);
+              setListAdapter(myAdapter);
             }
         }
     }
@@ -110,11 +111,6 @@ public class ShowPlacesActivity extends ListActivity {
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
 
-            String line;
-            while ((line = reader.readLine()) != null) {
-                buffer.append(line + "\n");
-            }
-
             System.out.println(buffer.toString());
 
 //
@@ -126,15 +122,16 @@ public class ShowPlacesActivity extends ListActivity {
 //
 //            // buffer input stream the result
 ////            BufferedInputStream bis = new BufferedInputStream(is);
-//            ByteArrayBuffer baf = new ByteArrayBuffer(20);
-//            int current = 0;
-//
-//            while ((current = bis.read()) != -1) {
-//                baf.append((byte) current);
-//            }
+            ByteArrayBuffer baf = new ByteArrayBuffer(20);
+            int current = 0;
+
+            while ((current = reader.read()) != -1) {
+
+                baf.append((byte) current);
+            }
 //
 //            // the result as a string is ready for parsing
-//            replyString = new String(baf.toByteArray());
+            replyString = new String(baf.toByteArray());
 //            System.out.print("Rishi2 :" + replyString);
         } catch (Exception e) {
             e.printStackTrace();
