@@ -15,10 +15,13 @@ import org.apache.http.util.ByteArrayBuffer;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import android.os.AsyncTask;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 
-public class ShowPlacesActivity extends ListActivity {
+public class ShowPlacesActivity extends AppCompatActivity {
 
     List<GooglePlace> venuesList;
     final String GOOGLE_KEY = "AIzaSyA2pWuAzJ_agDXpISSGDEh1hnk6B7SPMOw";
@@ -30,10 +33,15 @@ public class ShowPlacesActivity extends ListActivity {
 
     ArrayAdapter<String> myAdapter;
 
+    ListView placesListView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.content_show_places);
+        setContentView(R.layout.activity_show_places);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 //        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 //        fab.setOnClickListener(new View.OnClickListener() {
@@ -43,7 +51,7 @@ public class ShowPlacesActivity extends ListActivity {
 //                        .setAction("Action", null).show();
 //            }
 //        });
-
+        placesListView = (ListView) findViewById(R.id.placesListView);
         new googleplaces().execute();
     }
 
@@ -84,7 +92,7 @@ public class ShowPlacesActivity extends ListActivity {
                 // set the results to the list and show them in the xml
                 String temp[] = (String[])listTitle.toArray(new String[listTitle.size()]);
                myAdapter = new ArrayAdapter<String>(getApplicationContext(),R.layout.places_list_item,temp);
-              setListAdapter(myAdapter);
+                placesListView.setAdapter(myAdapter);
             }
         }
     }
