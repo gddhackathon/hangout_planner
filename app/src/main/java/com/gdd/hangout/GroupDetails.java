@@ -180,7 +180,7 @@ public class GroupDetails extends AppCompatActivity implements AdapterView.OnIte
         GeocodingLocation locationAddress = new GeocodingLocation();
         locationAddress.getAddressFromLocation(address,
                 getApplicationContext(), new GeocoderHandler());
-        Toast.makeText(this, str + latLon, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, str, Toast.LENGTH_SHORT).show();
     }
 
     private class GeocoderHandler extends Handler {
@@ -196,6 +196,7 @@ public class GroupDetails extends AppCompatActivity implements AdapterView.OnIte
                     locationAddress = null;
             }
             latLon = locationAddress;
+            Toast.makeText(getApplicationContext(), latLon, Toast.LENGTH_SHORT).show();
         }
     }
 }
