@@ -2,6 +2,7 @@ package com.gdd.hangout;
 
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -13,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -47,7 +49,7 @@ public class GroupDetails extends AppCompatActivity {
         //TODO: Get the Contacts Based on Group Information
         ListView contactsListView = (ListView) findViewById(R.id.listViewContacts);
         //String groupMembers[] = {"Ganesh ", "Debarshi", " David"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.contacts_list_item,R.id.contact_name, ContactsUtil.getContactsForGroup(groupName,this));
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.contacts_list_item, R.id.contact_name, ContactsUtil.getContactsForGroup(groupName, this));
         contactsListView.setAdapter(adapter);
 
         /*try {
@@ -95,7 +97,15 @@ public class GroupDetails extends AppCompatActivity {
         dialog.setContentView(R.layout.plan_trip_popup);
         dialog.getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.custom_title_destination_popup);
 
-        CheckBox checkBox = (CheckBox)dialog.findViewById(R.id.checkBox);
+        CheckBox checkBox = (CheckBox) dialog.findViewById(R.id.checkBox);
+        Button button = (Button) dialog.findViewById(R.id.buttonShowPlaces);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplication(), CreateNewPlacesActivity.class);
+                startActivity(intent);
+            }
+        });
         checkBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -103,7 +113,7 @@ public class GroupDetails extends AppCompatActivity {
                 if (((CheckBox) v).isChecked()) {
                     editText.setVisibility(View.VISIBLE);
                     editText.setEnabled(true);
-                }else{
+                } else {
                     editText.setVisibility(View.GONE);
                     editText.setEnabled(true);
                 }
